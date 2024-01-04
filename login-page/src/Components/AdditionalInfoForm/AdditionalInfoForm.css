@@ -1,0 +1,59 @@
+/* AdditionalInfoForm.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;600&display=swap');
+/* Style the container to center its contents */
+
+.inputs_container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  /* Style the checkbox label text */
+  .inputs_container label {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    display: flex;
+   align-items: center;
+  }
+  
+  /* Optional: Adjust the margin for better spacing */
+  .inputs_container label input[type="checkbox"] {
+    margin-right: 30px; /* Adjust the margin as needed */
+  }
+
+  .radio_container {
+    background-color: #6e6d9d;
+    padding: 0px 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    margin-left: 110px;
+  }
+
+  .radio_options {
+    text-align: center; /* Center the radio options horizontally */
+  }
+  
+  .radio_option {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Adjust the margin as needed */
+  }
+
+  .radio_option input:checked + label {
+    color: #DBFF00;
+  }
+  .radio_heading {
+    text-align: center;
+    margin-left:210px;
+    /* reduce font size*/
+    font-size: 1.0rem;
+    color: white;
+    margin-bottom: 1rem; /* Adjust margin as needed */
+  }
+
+  label span {
+    white-space: nowrap;
+  }
+  

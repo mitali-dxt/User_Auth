@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./LoginForm.css";
 import Card from "../Card/Card";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -86,9 +87,9 @@ const LoginForm = ({ setIsLoggedIn }) => {
         <input type="submit" value="Log In" className="login_button" />
       </form>
       <div className="link_container">
-        <a href="" className="small">
-          Forgot Password?
-        </a>
+        <Link to="/signup" className="small">
+          Don't have an account? Sign Up
+        </Link>
       </div>
       <div className="icons">
         <GoogleIcon className="icon" />
