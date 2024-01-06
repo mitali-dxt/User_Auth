@@ -4,9 +4,11 @@ import LoginForm from "./Components/LoginForm/LoginForm";
 import SignUpForm from "./Components/SignUpForm/SignUpForm";
 import AdditionalInfoForm from "./Components/AdditionalInfoForm/AdditionalInfoForm"; 
 import LoggedIn from "./Components/LoggedIn/LoggedIn";
+import WalletInfo from "./Components/WalletInfo/WalletInfo";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [walletAddress, setWalletAddress] = useState("");
 
   return (
     <Router>
@@ -22,6 +24,9 @@ function App() {
         </Route>
         <Route path="/loggedIn" exact>
           <LoggedIn setIsLoggedIn={setIsLoggedIn} />
+        </Route>
+        <Route path="/wallet-info" exact>
+          <WalletInfo setWalletAddress={setWalletAddress} />
         </Route>
         <Redirect from="/" to="/login" />
       </Switch>

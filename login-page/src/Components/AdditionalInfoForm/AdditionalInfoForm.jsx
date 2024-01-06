@@ -1,6 +1,6 @@
 // AdditionalInfoForm.jsx
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Card from "../Card/Card";
 import "./AdditionalInfoForm.css";
 
@@ -10,6 +10,7 @@ const AdditionalInfoForm = ({ setIsLoggedIn }) => {
   const [lastName, setLastName] = useState("");
   const [userType, setUserType] = useState(""); // "freelancer" or "client"
   const [agree, setAgree] = useState(false);
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     // Handle the submission of additional information
@@ -21,6 +22,7 @@ const AdditionalInfoForm = ({ setIsLoggedIn }) => {
       // For example, you can send the data to the server or update state
       // Set isLoggedIn to true once the user is successfully signed up
       setIsLoggedIn(true);
+      history.push("/wallet-info");
     } else {
       // Handle form validation errors
       console.log("Please fill out all fields and agree to the terms.");
