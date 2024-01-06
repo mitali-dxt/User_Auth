@@ -1,53 +1,41 @@
+// LoginForm.jsx
+
 import React, { useState } from "react";
-import { Link, useHistory} from "react-router-dom";
-import "./LoginForm.css";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Card from "../Card/Card";
+import "./LoginForm.css";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { database } from "../../utils/database";
 
 const LoginForm = ({ setIsLoggedIn }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [walletAddress, setWalletAddress] = useState("");
   const [errorMessages, setErrorMessages] = useState({});
   const history = useHistory();
 
   const errors = {
-    email: "Invalid email",
-    password: "Invalid password",
-    noEmail: "Please enter your email",
-    noPassword: "Please enter your password",
+    walletAddress: "Invalid wallet address",
+    noWalletAddress: "Please enter your wallet address",
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!email) {
-      setErrorMessages({ name: "noEmail", message: errors.noEmail });
+    if (!walletAddress) {
+      setErrorMessages({ name: "noWalletAddress", message: errors.noWalletAddress });
       return;
     }
 
-    if (!password) {
-      setErrorMessages({ name: "noPassword", message: errors.noPassword });
-      return;
-    }
-
-    const currentUser = database.find((user) => user.email === email);
+    const currentUser = database.find((user) => user.walletAddress === walletAddress);
 
     if (currentUser) {
-      console.log("User found:", currentUser);
-      if (currentUser.password !== password) {
-        setErrorMessages({ name: "password", message: errors.password });
-      } else {
-        console.log("Correct password, logging in...");
-        setErrorMessages({});
-        setIsLoggedIn(true);
-        console.log("After successful login, redirecting to /loggedIn");
-        history.push("/loggedIn");
-      }
+      setErrorMessages({});
+      setIsLoggedIn(true);
+      history.push("/loggedIn");
     } else {
-      setErrorMessages({ name: "email", message: errors.email });
+      setErrorMessages({ name: "walletAddress", message: errors.walletAddress });
     }
   };
 
@@ -59,25 +47,17 @@ const LoginForm = ({ setIsLoggedIn }) => {
   return (
     <Card>
       <h1 className="title">Log In</h1>
-      <p className="subtitle">Please log in using your email and password!</p>
+      <p className="subtitle">Please log in using your wallet address!</p>
       <form onSubmit={handleSubmit}>
         <div className="inputs_container">
           <input
-            type="email" // Use type="email" for email input
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="Wallet Address"
+            value={walletAddress}
+            onChange={(e) => setWalletAddress(e.target.value)}
           />
-          {renderErrorMsg("email")}
-          {renderErrorMsg("noEmail")}
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {renderErrorMsg("password")}
-          {renderErrorMsg("noPassword")}
+          {renderErrorMsg("walletAddress")}
+          {renderErrorMsg("noWalletAddress")}
         </div>
         <input type="submit" value="Log In" className="login_button" />
       </form>

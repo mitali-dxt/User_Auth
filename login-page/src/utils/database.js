@@ -1,14 +1,11 @@
 export const database = [
   {
-    email: "user1@example.com",
-    password: "password1",
+    walletAddress: "wallet1",
+    // Other user data...
   },
   {
-    email: "user2@example.com",
-    password: "password2",
+    walletAddress: "wallet2",
+    // Other user data...
   },
-  {
-    email: "user3@example.com",
-    password: "password3",
-  },
+  // Additional users...
 ];
