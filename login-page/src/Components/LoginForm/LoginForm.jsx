@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import "./LoginForm.css";
 import Card from "../Card/Card";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -8,52 +8,49 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import { database } from "../../utils/database";
 
 const LoginForm = ({ setIsLoggedIn }) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessages, setErrorMessages] = useState({});
+  const history = useHistory();
 
   const errors = {
-    username: "Invalid username",
+    email: "Invalid email",
     password: "Invalid password",
-    noUsername: "Please enter your username",
+    noEmail: "Please enter your email",
     noPassword: "Please enter your password",
   };
 
   const handleSubmit = (e) => {
-    // Prevent page from reloading
     e.preventDefault();
 
-    if (!username) {
-      // Username input is empty
-      setErrorMessages({ name: "noUsername", message: errors.noUsername });
+    if (!email) {
+      setErrorMessages({ name: "noEmail", message: errors.noEmail });
       return;
     }
 
     if (!password) {
-      // Password input is empty
       setErrorMessages({ name: "noPassword", message: errors.noPassword });
       return;
     }
 
-    // Search for user credentials
-    const currentUser = database.find((user) => user.username === username);
+    const currentUser = database.find((user) => user.email === email);
 
     if (currentUser) {
+      console.log("User found:", currentUser);
       if (currentUser.password !== password) {
-        // Wrong password
         setErrorMessages({ name: "password", message: errors.password });
       } else {
-        // Correct password, log in user
+        console.log("Correct password, logging in...");
         setErrorMessages({});
         setIsLoggedIn(true);
+        console.log("After successful login, redirecting to /loggedIn");
+        history.push("/loggedIn");
       }
     } else {
-      // Username doens't exist in the database
-      setErrorMessages({ name: "username", message: errors.username });
+      setErrorMessages({ name: "email", message: errors.email });
     }
   };
 
-  // Render error messages
   const renderErrorMsg = (name) =>
     name === errorMessages.name && (
       <p className="error_msg">{errorMessages.message}</p>
@@ -62,19 +59,17 @@ const LoginForm = ({ setIsLoggedIn }) => {
   return (
     <Card>
       <h1 className="title">Log In</h1>
-      <p className="subtitle">
-        Please log in using your username and password!
-      </p>
+      <p className="subtitle">Please log in using your email and password!</p>
       <form onSubmit={handleSubmit}>
         <div className="inputs_container">
           <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email" // Use type="email" for email input
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          {renderErrorMsg("username")}
-          {renderErrorMsg("noUsername")}
+          {renderErrorMsg("email")}
+          {renderErrorMsg("noEmail")}
           <input
             type="password"
             placeholder="Password"

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Card from "../Card/Card";
-import AdditionalInfoForm from "../AdditionalInfoForm/AdditionalInfoForm";
 import "./SignUpForm.css";
 
 const SignUpForm = ({ setIsLoggedIn }) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState(""); // Change the state variable to email
   const [password, setPassword] = useState("");
   const history = useHistory();
 
@@ -26,10 +25,10 @@ const SignUpForm = ({ setIsLoggedIn }) => {
       <form onSubmit={handleSubmit}>
         <div className="inputs_container">
           <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email" // Change the input type to "email"
+            placeholder="Email" // Update the placeholder text
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
