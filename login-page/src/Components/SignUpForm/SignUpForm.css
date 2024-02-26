@@ -16,6 +16,7 @@
 .inputs_container {
   display: flex;
   flex-direction: column;
+  align-items: flex-start; /* Align items to start */
 }
 
 .inputs_container input {
@@ -65,6 +66,39 @@
   text-decoration: underline;
   margin-bottom: 5rem;
   cursor: pointer;
+}
+
+.radio_container {
+  background-color: #6e6d9d;
+  padding: 0px 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  margin-left: 110px;
+}
+
+.radio_option {
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  margin-right: 20px; /* Adjust the margin as needed */
+}
+
+.radio_option input:checked + label {
+  color: #DBFF00;
+  font-weight: bold;
+}
+
+.radio_heading {
+  text-align: center;
+  margin-left: 210px;
+  font-size: 1.0rem;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+label span {
+  white-space: nowrap;
 }
 
 @media only screen and (max-width: 620px) {

@@ -1,49 +1,81 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Card from "../Card/Card";
 import "./SignUpForm.css";
 
-const SignUpForm = ({ setIsLoggedIn }) => {
-  const [email, setEmail] = useState(""); // Change the state variable to email
-  const [password, setPassword] = useState("");
+const SignUpForm = ({ setIsLoggedIn, setWalletAddress }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [userType, setUserType] = useState(""); // "freelancer" or "client"
+  const [walletAddressInput, setWalletAddressInput] = useState("");
   const history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSignUp = (e) => {
     e.preventDefault();
 
-    // Basic form submission logic (add your registration logic here)
-    setIsLoggedIn(true);
+    // Validate the form fields
+    if (!firstName || !lastName || !userType || !walletAddressInput) {
+      alert("Please fill out all fields.");
+      return;
+    }
 
-    // Redirect to AdditionalInfoForm
-    history.push("/additional-info");
+    // Perform sign up logic here
+    history.push("/loggedIn");
+    // For simplicity, assuming sign up is successful
+    setIsLoggedIn(true);
+    setWalletAddress(walletAddressInput);
+
+    // Redirect to dashboard or another page
+    history.push("/loggedIn");
   };
 
   return (
     <Card>
       <h1 className="title">Sign Up</h1>
       <p className="subtitle">Create a new account!</p>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSignUp}>
         <div className="inputs_container">
           <input
-            type="email" // Change the input type to "email"
-            placeholder="Email" // Update the placeholder text
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
           <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
+          <input
+            type="text"
+            placeholder="Wallet Address"
+            value={walletAddressInput}
+            onChange={(e) => setWalletAddressInput(e.target.value)}
+          />
+          <div className="radio_container">
+            <div className="radio_option">
+              <input
+                type="radio"
+                value="freelancer"
+                checked={userType === "freelancer"}
+                onChange={() => setUserType("freelancer")}
+              />
+              <label>Freelancer</label>
+            </div>
+            <div className="radio_option">
+              <input
+                type="radio"
+                value="client"
+                checked={userType === "client"}
+                onChange={() => setUserType("client")}
+              />
+              <label>Client</label>
+            </div>
+          </div>
         </div>
-        <input type="submit" value="Sign Up" className="signup_button" />
+        <input type="submit" value="Create My Account" className="signup_button" />
       </form>
-      <div className="link_container">
-        <Link to="/login" className="small">
-          Already have an account? Login
-        </Link>
-      </div>
     </Card>
   );
 };
